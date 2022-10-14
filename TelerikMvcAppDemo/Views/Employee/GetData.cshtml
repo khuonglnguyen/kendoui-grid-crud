@@ -1,10 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = "GetData";
+    ViewBag.Title = "Employee";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Employee Manage</h2>
+<h2>Employee <b>Manage</b></h2>
 @(Html.Kendo().Grid<TelerikMvcAppDemo.Models.Employee>()
     .Name("EmpGrid")
     .Columns(c=> {
@@ -17,11 +17,13 @@
             cmd.Destroy();
         });
     })
+    .ToolBar(t => t.Search())
     .Excel(excel=>excel
     .FileName("Kendo UI Grid Export.xlsx")
     .Filterable(true)
     .ProxyURL(Url.Action("GetData","Employee"))
-    ).DataSource(datasource=>datasource
+    )
+    .DataSource(datasource=>datasource
     .Ajax()
     .Read(read => read.Action("GetData", "Employee"))
     .Create(c => c.Action("Create_Employee", "Employee"))

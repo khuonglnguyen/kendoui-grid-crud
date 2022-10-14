@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>@ViewBag.Title - My Telerik MVC Application</title>
-    	<link href="https://cdn.kendostatic.com/2022.3.913/styles/kendo.classic-opal.min.css" rel="stylesheet" type="text/css" />
+        <title>@ViewBag.Title</title>
+    	<link href="https://cdn.kendostatic.com/2022.3.913/styles/kendo.default-purple.min.css" rel="stylesheet" type="text/css" />
 	<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
 	<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
 	<script src="https://cdn.kendostatic.com/2022.3.913/js/jquery.min.js"></script>
@@ -18,7 +18,7 @@
             <div class="container p-0 p-sm-3">
                 <div class="navbar-header">
                     <button id="configure" class="k-rpanel-toggle btn-toggle"></button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("BETest .NET MVC", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
                 <div id="responsive-panel" class="navbar-left">
                     @(Html.Kendo().Menu()
