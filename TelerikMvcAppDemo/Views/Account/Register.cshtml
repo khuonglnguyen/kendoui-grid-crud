@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Login</h2>
+
+@(Html.Kendo().Form<TelerikMvcAppDemo.Models.Employee>()
+        .Name("Login")
+        .HtmlAttributes(new { action = "Login", method = "POST" })
+        .Validatable(v =>
+        {
+            v.ValidateOnBlur(true);
+            v.ValidationSummary(vs => vs.Enable(false));
+        })
+        .Items(items =>
+        {
+            items.AddGroup()
+                .Label("Registration Form")
+                .Items(i =>
+                {
+                    i.Add()
+                         .Field(f => f.FirstName)
+                         .Label(l => l.Text("First Name:"));
+                    i.Add()
+                        .Field(f => f.LastName)
+                        .Label(l => l.Text("Last Name:"));
+                    i.Add()
+                        .Field(f => f.Password)
+                        .Label(l => l.Text("Password:"))
+                        .Hint("Hint: enter alphanumeric characters only.")
+                        .EditorTemplateHandler("setPasswordEditor");
+                    i.Add()
+                        .Field(f => f.Email)
+                        .Label(l => l.Text("Email:"));
+                });
+        })
+    )
+
+<script>
+    function setPasswordEditor(container, options) {
+        $('<input type="password" id="Password" name="' + options.field + '" title="Password" required="required" autocomplete="off" aria-labelledby="Password-form-label" data-bind="value: Password" aria-describedby="Password-form-hint"/>')
+            .appendTo(container)
+            .kendoTextBox();
+    }
+</script>

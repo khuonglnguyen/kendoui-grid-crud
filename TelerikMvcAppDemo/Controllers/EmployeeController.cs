@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TelerikMvcAppDemo.App_Start;
 using TelerikMvcAppDemo.Models;
 using TelerikMvcAppDemo.Models.SubModels;
 using TelerikMvcAppDemo.Repositories;
 
 namespace TelerikMvcAppDemo.Controllers
 {
+    [AuthorizationFilter]
     public class EmployeeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

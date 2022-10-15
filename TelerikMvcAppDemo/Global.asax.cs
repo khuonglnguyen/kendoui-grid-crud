@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using TelerikMvcAppDemo.App_Start;
 
 namespace TelerikMvcAppDemo
 {
