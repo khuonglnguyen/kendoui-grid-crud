@@ -46,3 +46,43 @@
     .ToolBar(t => t.Excel())
     .ToolBar(t=>t.Create())
     )
+
+<script type="text/javascript">
+
+    //register custom validation rules
+    $(document).ready(function () {
+        $.extend(true, kendo.ui.validator, {
+            rules: { // custom rules
+                validation: function (input, params) {
+                    if (input.val() == "") {
+                        input.attr("data-validation-msg", "The field is required!");
+                        return /^[A-Z]/.test(input.val());
+                    }
+
+                    return true;
+                }
+            },
+            messages: { //custom rules messages
+                validation: function (input) {
+                    // return the message text
+                    return input.attr("data-val-validation");
+                }
+            }
+        });
+    });
+
+    //show server errors if any
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+</script>
