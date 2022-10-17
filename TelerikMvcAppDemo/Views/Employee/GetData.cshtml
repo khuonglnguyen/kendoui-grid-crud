@@ -21,6 +21,8 @@
         });
     })
     .ToolBar(t => t.Search())
+    .ToolBar(t => t.Custom().Text("Delete selection")
+                    .HtmlAttributes(new { onclick = "deleteSelection(event)" }))
     .Excel(excel=>excel
     .FileName("Employee.xlsx")
     .Filterable(true)
@@ -38,7 +40,7 @@
     )
     .Groupable()
     .Sortable()
-    .Selectable()
+    .Selectable(selectable => selectable.Mode(GridSelectionMode.Multiple))
     .Filterable()
     .Editable(e=>e.Mode(GridEditMode.InLine))
     .Pageable(p=>p.Refresh(true)
@@ -105,5 +107,14 @@
             externalGrid.dataSource.remove(externalDataItem); //Remove the data item from the external Grid.
             dataSource.insert(e.newIndex, externalDataItem.toJSON()); //Add the data item in the current Grid.
         }
+    }
+
+    function deleteSelection(e) {
+        //Prevent refresh
+        e.preventDefault();
+        var grid = $("#EmpGrid").data("kendoGrid");
+        grid.select().each(function () {
+            grid.removeRow($(this));
+        });
     }
 </script>
