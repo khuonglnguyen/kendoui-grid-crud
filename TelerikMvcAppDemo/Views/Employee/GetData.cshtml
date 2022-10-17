@@ -9,8 +9,10 @@
     .Name("EmpGrid")
     .Columns(c=> {
         c.Bound(p => p.EmployeeID);
-        c.Bound(p => p.FirstName);
-        c.Bound(p => p.LastName);
+        c.Bound(p => p.Name);
+        c.Bound(p => p.Email);
+        c.Bound(p => p.Address);
+        c.Bound(p => p.Phone);
         c.Command(cmd =>
         {
             cmd.Edit();
@@ -19,23 +21,25 @@
     })
     .ToolBar(t => t.Search())
     .Excel(excel=>excel
-    .FileName("Kendo UI Grid Export.xlsx")
+    .FileName("Employee.xlsx")
     .Filterable(true)
     .ProxyURL(Url.Action("GetData","Employee"))
     )
     .DataSource(datasource=>datasource
     .Ajax()
     .Read(read => read.Action("GetData", "Employee"))
-    .Create(c => c.Action("Create_Employee", "Employee"))
-    .Update(c => c.Action("Update_Employee", "Employee"))
-    .Destroy(c=>c.Action("DElete_Employee", "Employee"))
-    .Model(m=>{ m.Id(p => p.EmployeeID); })
+    .Create(c => c.Action("Create", "Employee"))
+    .Update(c => c.Action("Update", "Employee"))
+    .Destroy(c=>c.Action("Delete", "Employee"))
+    .Model(m=>{ m.Id(p => p.EmployeeID);
+        m.Field(p => p.EmployeeID).Editable(false).DefaultValue(0);
+    })
     )
     .Groupable()
     .Sortable()
     .Selectable()
     .Filterable()
-    .Editable(e=>e.Mode(GridEditMode.PopUp))
+    .Editable(e=>e.Mode(GridEditMode.InLine))
     .Pageable(p=>p.Refresh(true)
     .PageSizes(true)
     .PreviousNext(true))

@@ -177,7 +177,6 @@
     <Compile Include="Models\Employee.cs">
       <DependentUpon>DemoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SubModels\_Employee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
