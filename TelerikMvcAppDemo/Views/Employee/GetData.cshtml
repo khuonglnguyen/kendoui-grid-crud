@@ -8,6 +8,7 @@
 @(Html.Kendo().Grid<TelerikMvcAppDemo.Models.Employee>()
     .Name("EmpGrid")
     .Columns(c=> {
+        c.Template(@<text> </text>).Draggable(true);
         c.Bound(p => p.EmployeeID);
         c.Bound(p => p.Name);
         c.Bound(p => p.Email);
@@ -43,6 +44,12 @@
     .Pageable(p=>p.Refresh(true)
     .PageSizes(true)
     .PreviousNext(true))
+    .Navigatable()
+    .Reorderable(reorder => reorder.Rows(true).Columns(true))
+    .Events(ev =>
+            {
+                ev.RowReorder("onRowReorder");
+            })
     .ToolBar(t => t.Excel())
     .ToolBar(t=>t.Create())
     )
@@ -83,6 +90,20 @@
                 }
             });
             alert(message);
+        }
+    }
+
+    function onRowReorder(e) {
+        var grid = e.sender,
+            dataSource = grid.dataSource,
+            externalGrid, externalDataItem;
+
+        if (e.oldIndex === -1) { // If the dropped row is from external Grid.
+            e.preventDefault();
+            externalGrid = e.row.parents(".k-grid").data("kendoGrid"); //Get an instance of the external Grid.
+            externalDataItem = externalGrid.dataItem(e.row); //Get the data item.
+            externalGrid.dataSource.remove(externalDataItem); //Remove the data item from the external Grid.
+            dataSource.insert(e.newIndex, externalDataItem.toJSON()); //Add the data item in the current Grid.
         }
     }
 </script>
