@@ -7,9 +7,11 @@
 <h2>Employee <b>Manage</b></h2>
 @(Html.Kendo().Grid<TelerikMvcAppDemo.Models.Employee>()
     .Name("EmpGrid")
-    .Columns(c=> {
-        c.Template(@<text> </text>).Draggable(true);
-        c.Bound(p => p.EmployeeID);
+    .Columns(c=>
+    {
+    @*c.Template(@<text> </text>).Draggable(true);*@
+    c.Select().Width(75).HtmlAttributes(new { @class = "checkbox-align" }).HeaderHtmlAttributes(new { @class = "checkbox-align" }).Width(50);
+        c.Bound(p => p.EmployeeID).Width(105);
         c.Bound(p => p.Name);
         c.Bound(p => p.Email);
         c.Bound(p => p.Address);

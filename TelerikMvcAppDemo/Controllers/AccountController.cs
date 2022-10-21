@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using TelerikMvcAppDemo.Models;
 using TelerikMvcAppDemo.Repositories;
 
@@ -25,12 +24,25 @@ namespace TelerikMvcAppDemo.Controllers
         public ActionResult Login(Employee employee)
         {
             var check = unitOfWork.Employees.CheckLogin(employee.Email, employee.Password);
-            Session["User"] = check;
-            return RedirectToAction("Index","Home");
+
+            if (check != null)
+            {
+
+                FormsAuthentication.SetAuthCookie(check.Email, false);
+                FormsAuthentication.SetAuthCookie(Convert.ToString(check.EmployeeID), false);
+                var authTicket = new FormsAuthenticationTicket(1, check.Email, DateTime.Now, DateTime.Now.AddMinutes(20), false, check.Role.Trim());
+                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                HttpContext.Response.Cookies.Add(authCookie);
+
+                return RedirectToAction("Index", "Home");
+            }
+            ViewBag.Message = "Email or password is incorrect";
+            return View();
         }
         public ActionResult Logout()
         {
-            Session.Remove("User");
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
     }

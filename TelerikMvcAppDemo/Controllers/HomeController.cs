@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace TelerikMvcAppDemo.Controllers
 {
+    [HandleError]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -23,6 +24,13 @@ namespace TelerikMvcAppDemo.Controllers
         }
 
         public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Contact2()
         {
             ViewBag.Message = "Your contact page.";
 

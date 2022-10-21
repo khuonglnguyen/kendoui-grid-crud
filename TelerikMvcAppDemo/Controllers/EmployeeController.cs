@@ -1,13 +1,12 @@
 ﻿using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System.Web.Mvc;
-using TelerikMvcAppDemo.App_Start;
 using TelerikMvcAppDemo.Models;
 using TelerikMvcAppDemo.Repositories;
 
 namespace TelerikMvcAppDemo.Controllers
 {
-    [AuthorizationFilter]
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -15,6 +14,7 @@ namespace TelerikMvcAppDemo.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+        [Authorize(Roles="admin")]
         public ActionResult Index()
         {
             return View("GetData");

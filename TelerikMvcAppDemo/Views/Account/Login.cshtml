@@ -5,6 +5,10 @@
 }
 
 <h2>Login</h2>
+@if (ViewBag.Message != null)
+{
+    @ViewBag.Message
+}
 
 @(Html.Kendo().Form<TelerikMvcAppDemo.Models.Employee>()
         .Name("Login")
@@ -30,7 +34,6 @@
                 });
         })
     )
-
 <script>
     function setPasswordEditor(container, options) {
         $('<input type="password" id="Password" name="' + options.field + '" title="Password" required="required" autocomplete="off" aria-labelledby="Password-form-label" data-bind="value: Password" aria-describedby="Password-form-hint"/>')
